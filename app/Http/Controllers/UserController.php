@@ -100,8 +100,15 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request, $id)
     {
-        //
+        $error = "";
+        $user = User::find($id);
+
+        $user->delete();
+
+        $users = User::all();
+
+        return redirect('/user');
     }
 }

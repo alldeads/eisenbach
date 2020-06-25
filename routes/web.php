@@ -23,3 +23,5 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::resource('user', 'UserController');
+
+Route::post('user/{id}/delete', 'UserController@destroy')->name('destroy');

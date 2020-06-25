@@ -110,9 +110,13 @@
                                     <a href="#" class="btn btn-success">
                                         <i class="fa fa-edit"></i>
                                     </a>
-                                    <a href="#" class="btn btn-danger">
-                                        <i class="fa fa-trash"></i>
-                                    </a>
+
+                                    <form method="POST" action="user/{{$user->id}}/delete" >
+                                        @csrf
+                                        <button type="submit" class="btn btn-danger">
+                                            <i class="fa fa-trash"></i>
+                                        </button>
+                                    </form>
                                 </td>
                             </tr>
                         @endforeach
