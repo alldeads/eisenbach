@@ -140,4 +140,30 @@ class UserController extends Controller
 
         return redirect('/user');
     }
+
+    /**
+     * Get All Users API
+     *
+     * @return \Illuminate\Http\Response
+     */
+
+    public function all_users()
+    {
+        $users = User::all();
+
+        return response()->json([$users], 200);
+    }
+
+    /**
+     * Get Specific User API
+     *
+     * @return \Illuminate\Http\Response
+     */
+
+    public function get_user($id)
+    {
+        $user = User::find($id);
+
+        return response()->json([$user], 200);
+    }
 }

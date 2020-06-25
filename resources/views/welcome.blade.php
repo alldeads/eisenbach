@@ -34,8 +34,9 @@
                                 <i class="fa fa-edit"></i>
                             </a>
 
-                            <form method="POST" action="user/{{$user->id}}/delete" >
+                            <form method="POST" action="user/{{$user->id}}">
                                 @csrf
+                                @method('delete')
                                 <button type="submit" class="btn btn-danger">
                                     <i class="fa fa-trash"></i>
                                 </button>

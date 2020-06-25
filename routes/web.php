@@ -24,4 +24,5 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 Route::resource('user', 'UserController');
 
-Route::post('user/{id}/delete', 'UserController@destroy')->name('destroy');
+Route::get('/api/users', 'UserController@all_users');
+Route::get('/api/users/{id}', 'UserController@get_user');
