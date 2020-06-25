@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 use App\User;
 
@@ -15,19 +16,10 @@ class UserController extends Controller
      */
     public function index()
     {
+        $error = "";
         $users = User::all();
 
-        return view('welcome', compact('users'));
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+        return view('welcome', compact('users', 'error'));
     }
 
     /**
@@ -38,7 +30,34 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $error = "";
+
+        if ( count( $request->all() ) > 0 ) {
+
+            $validator = Validator::make($request->all(), [
+                'name'     => 'required|min:2',
+                'email'    => 'required|email|unique:users',
+                'password' => 'required|min:6',
+            ]);
+
+            if ($validator->fails()) {
+                $error = $validator->messages()->first();
+            }
+
+            if ( !$error ) {
+                User::create([
+                    'name'     => $request->name,
+                    'email'    => $request->email,
+                    'password' => bcrypt($request->password)
+                ]);
+
+                $error = "User successfully added!";
+            }
+        }
+
+        $users = User::all();
+
+        return view('welcome', compact('users', 'error'));
     }
 
     /**
