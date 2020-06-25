@@ -38,6 +38,7 @@ class UserController extends Controller
                 'name'     => 'required|min:2',
                 'email'    => 'required|email|unique:users',
                 'password' => 'required|min:6',
+                'phone'    => 'required|min:11|unique:users'
             ]);
 
             if ($validator->fails()) {
@@ -48,6 +49,7 @@ class UserController extends Controller
                 User::create([
                     'name'     => $request->name,
                     'email'    => $request->email,
+                    'phone'    => $request->phone,
                     'password' => bcrypt($request->password)
                 ]);
 
@@ -68,18 +70,11 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        //
-    }
+        $error = "";
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
+        $user = User::findOrFail($id);
+
+        return view('view', compact('error', 'user'));
     }
 
     /**
