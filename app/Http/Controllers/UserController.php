@@ -118,6 +118,8 @@ class UserController extends Controller
                 'password' => bcrypt($request->password),
                 'phone' => $request->phone,
             ]);
+
+            $error = "Successfully saved!";
         }
         
         return view('view', compact('error', 'user'));
