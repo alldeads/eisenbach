@@ -36,4 +36,16 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public static function isPhoneExist( $phone )
+    {
+        $result = User::where('phone', $phone)->first();
+
+        if ( $result ) {
+
+            return true;
+        }
+
+        return false;
+    }
 }

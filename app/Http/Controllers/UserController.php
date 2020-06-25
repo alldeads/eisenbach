@@ -86,7 +86,41 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $error = "";
+
+        $user = User::findOrFail($id);
+
+        if ( count( $request->all() ) > 0 ) {
+
+            $validator = Validator::make($request->all(), [
+                'name'     => 'required|min:2',
+                'password' => 'required|min:6',
+                'phone'    => 'required|min:11'
+            ]);
+
+            if ($validator->fails()) {
+                $error = $validator->messages()->first();
+            }
+
+            if ( $request->phone != $user->phone ) {
+
+                $result = User::isPhoneExist($request->phone);
+
+                if ( $result ) {
+                    $error = "Phone Number is already taken!";
+                }
+            }
+        }
+
+        if ( strlen( $error ) == 0 ) {
+            $user->update([
+                'name' => $request->name,
+                'password' => bcrypt($request->password),
+                'phone' => $request->phone,
+            ]);
+        }
+        
+        return view('view', compact('error', 'user'));
     }
 
     /**

@@ -18,20 +18,22 @@
 
         	<div class="col-md-5 col-sm-12 m-auto">
         		<form method="POST">
+        			@csrf
+        			@method('PUT')
 			        <div class="form-group">
 				        <label for="name">Name</label>
 				        <input id="name" type="text" name="name" class="form-control" value="{{ $user->name }}">
 				    </div>
 				    <div class="form-group">
 				        <label for="email">Email Address</label>
-				        <input id="email" type="email" name="email" class="form-control" value="{{ $user->email }}">
+				        <input id="email" type="email" class="form-control" value="{{ $user->email }}" readonly>
 				    </div>
 				    <div class="form-group">
 				        <label for="phone">Phone Number</label>
 				        <input id="phone" type="text" name="phone" class="form-control" value="{{ $user->phone }}">
 				    </div>
 				    <div class="form-group">
-				        <label for="exampleInputPassword1">Password</label>
+				        <label for="password">Password</label>
 				        <input id="password" name="password" type="password" class="form-control" value="{{ $user->password }}">
 				    </div>
 
